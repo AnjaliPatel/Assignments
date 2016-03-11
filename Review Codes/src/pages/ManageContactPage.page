@@ -1,0 +1,13 @@
+<apex:page standardController="Account" sidebar="true">
+    <apex:form >
+        <apex:pageBlock title="Accounts Information" >
+            <apex:pageBlockTable value="{!Account}" var="objAccount" columns="4" >
+                <apex:column value="{!objAccount.Name}"/>
+                <apex:column value="{!objAccount.PersonEmail__c}"/>
+                <apex:column value="{!objAccount.Phone}"/>
+                <apex:column value="{!objAccount.Website}"/>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>  
+</apex:page>
