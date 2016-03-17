@@ -1,0 +1,38 @@
+<apex:page showHeader="false" sidebar="false" renderAs="pdf" standardController="Invoice__c" extensions="GenerateInvoicePageExtension">
+    <p style="float:right;font-size:50"><b>Invoice</b></p>
+    <apex:pageBlock >
+        <apex:outputText >{!Invoice__c.Related_Account__r.Name}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Account__r.BillingStreet}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Account__r.BillingCity},{!Invoice__c.Related_Account__r.BillingState},{!Invoice__c.Related_Account__r.BillingPostalCode}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Account__r.Phone}</apex:outputText><br/>
+        <div style="float:right;width:350px">
+            <table border="1" border-collapse="collapse">
+                <tr>
+                    <td>Invoice Number</td><td>Invoice Date</td>
+                </tr>
+                <tr>
+                    <td>{!Invoice__c.Name}</td><td>{!Invoice__c.Invoice_Date__c}</td>
+                </tr>
+            </table>
+        </div>   
+    </apex:pageBlock>
+        <div style="height:30px"></div>
+    <apex:pageBlock >
+        <apex:outputText >Bill To:</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Contact__r.Name}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Contact__r.MailingStreet}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Contact__r.MailingCity},{!Invoice__c.Related_Contact__r.MailingState},{!Invoice__c.Related_Contact__r.MailingPostalCode}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Contact__r.Phone}</apex:outputText><br/>
+        <apex:outputText >{!Invoice__c.Related_Contact__r.Email}</apex:outputText><br/>
+    </apex:pageBlock>  
+    
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!relatedLineItemList}" var="objLineItem">
+            <apex:column value="{!objLineItem.Item_Name__c}"/>
+            <apex:column value="{!objLineItem.Service_Fee__c}"/>
+            <apex:column value="{!objLineItem.Labour_Cost__c}"/> 
+            <apex:column value="{!objLineItem.Tax__c}"/>
+            <apex:column value="{!objLineItem.Total_Amount__c}"/>   
+        </apex:pageBlockTable>
+    </apex:pageBlock>     
+</apex:page>

@@ -1,0 +1,64 @@
+<apex:page standardController="Account" sidebar="false" extensions="ManageContactExtension" showHeader="false" >
+    <center><apex:image url="{!$Resource.AccountManagementLogo}" height="100" width="200" /></center>
+    <apex:form >
+        <apex:pageBlock title="Accounts Information" >
+            
+            <apex:actionFunction name="searchActionFunction" action="{!performSearch}" reRender="pageblock1"/>
+            <apex:pageBlockSection columns="3" id="pageblock1">
+                <apex:inputText value="{!searchName}" label="Search Name" onkeypress="return enterSearchAction(event)" />
+                <apex:commandButton value="Search" action="{!performSearch}" reRender="searchTable,pageblock1"/>
+                <apex:commandButton value="Clear" action="{!clearSearch}" reRender="searchTable" />
+                <apex:outputText id="searchWarning"  style="color:red" rendered="{!renderSearchWarning}" >Enter at least three characters for search!!!</apex:outputText>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlock id="searchTable" >
+            <apex:pageBlockTable value="{!searchList}" var="objSearch" title="Search Results" columns="5" rendered="{!renderSearchVariable}" >
+                 <apex:column headerValue="Account Name" >
+                    <apex:commandLink action="/{!objSearch.Id}" value="{!objSearch.Name}"/>
+                </apex:column>
+                <apex:column value="{!objSearch.PersonEmail__c}"/>
+                <apex:column value="{!objSearch.Phone}"/>
+                <apex:column value="{!objSearch.Website}"/>
+                <apex:column >
+                    <apex:commandButton value="Manage Contact" onclick="window.open('/apex/ManageContactsPage?id={!objSearch.Id}')">
+                     <apex:param name="currentId" value="{!objSearch.Id}" assignTo="{!CurrentAccountId}" />
+                     </apex:commandButton>
+                </apex:column> 
+            </apex:pageBlockTable>
+            </apex:pageBlock>
+            
+            <apex:pageBlockTable value="{!lstAccount}" var="objAccount" columns="5" >
+                <apex:column headerValue="Account Name" >
+                    <apex:commandLink action="/{!objAccount.Id}" value="{!objAccount.Name}"/>
+                </apex:column>
+                <apex:column value="{!objAccount.PersonEmail__c}"/>
+                <apex:column value="{!objAccount.Phone}"/>
+                <apex:column value="{!objAccount.Website}"/>
+                <apex:column >
+                    <apex:commandButton value="Manage Contact" onclick="window.open('/apex/ManageContactsPage?id={!objAccount.Id}')">
+                     <apex:param name="currentId" value="{!objAccount.Id}" assignTo="{!CurrentAccountId}" />
+                     </apex:commandButton>
+                </apex:column> 
+            </apex:pageBlockTable>
+            
+            <c:FooterCount recordCount="{!countAccount}"></c:FooterCount>
+            
+        </apex:pageBlock>
+  
+    </apex:form>  
+    
+    <script type='text/javascript'>
+        function enterSearchAction(eventName){
+            if(window.event && window.event.keycode==13 || eventName.which==13 )
+            {
+                searchActionFunction();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+       
+    </script>
+</apex:page>
