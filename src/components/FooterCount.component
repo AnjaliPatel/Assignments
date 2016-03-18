@@ -1,0 +1,4 @@
+<apex:component >
+  <apex:attribute name="recordCount" type="Integer" description="Number of records in parent component." required="true" />
+  <apex:outputText >Count: {!recordCount}</apex:outputText>
+</apex:component>

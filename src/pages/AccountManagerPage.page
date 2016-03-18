@@ -1,0 +1,18 @@
+<apex:page standardController="Account" >
+    <apex:form >
+        <apex:pageBlock title="New Account Information Feed Form">
+            <apex:pageBlockSection >
+                <apex:inputField required="true" value="{!Account.Name}"/> 
+                <apex:inputField required="true" value="{!Account.PersonEmail__c}"/>  
+                <apex:inputField value="{!Account.Phone}"/> 
+                <apex:inputField value="{!Account.Website}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" oncomplete="window.open('/apex/ManageAccountPage','_parent')" />
+                <apex:commandButton immediate="true" action="/apex/ManageAccountPage" value="Cancel"/>
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>   
+</apex:page>
