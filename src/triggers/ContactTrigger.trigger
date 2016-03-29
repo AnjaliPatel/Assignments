@@ -1,8 +1,10 @@
 trigger ContactTrigger on Contact (before insert) {
-    List<Contact> ContactRecords= new List<Contact>(Trigger.New);
+    TriggerSetting__c objTriggerSetting=TriggerSetting__c.getInstance();
+    if(objTriggerSetting.Contact_Trigger__c==true){ 
     if(Trigger.isInsert && Trigger.isBefore)
     {
-        ContactTriggerHandler InitiateHandler=new ContactTriggerHandler();
-        InitiateHandler.AssociateContactToAccount(ContactRecords);
+        ContactTriggerHandlerOptimized InitiateHandler=new ContactTriggerHandlerOptimized();
+        InitiateHandler.associateAccountToContact(Trigger.New);
+    }
     }
 }

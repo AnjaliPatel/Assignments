@@ -1,43 +1,28 @@
+//This is the handler class for contact trigger 
 public class ContactTriggerHandlerOptimized{
-    public void associateAccountToContact(List<Contact> ContactRecords){
-        List<Account> AccountList = [select id,name,Domain__c from Account where Domain__c != NULL];
-        System.debug(ContactRecords);
-        List<String> emailSplit = new List<String>(); 
-        String domain;
-        Map<String,List<Contact>> mapDomainContacts = new Map<String,List<Contact>>();
-        List<Contact> sameDomainContacts = new List<Contact>();
+    //This method associates account with same domain with the inserted contacts.
+    public void associateAccountToContact(List<Contact> ContactRecordList){
         
-        for(Contact eachContact : ContactRecords){
-            if(eachContact.Email != NULL){
-                emailSplit = eachContact.Email.split('@');
-                domain = emailSplit[1];
-                if(mapDomainContacts.containsKey(domain)){
-                      sameDomainContacts = mapDomainContacts.get(domain);
-                      sameDomainContacts.add(eachContact);
-                      mapDomainContacts.put(domain,sameDomainContacts);
-                 }
-                else{
-                    mapDomainContacts.put(domain,new List<Contact>{eachContact});
-                }
-                
-            } 
+        List<Account> AccountRecordList=[SELECT ID
+                                             , Name
+                                             , Domain__c
+                                          FROM Account 
+                                         WHERE Domain__c!=Null];
+        Map<String,Id> AccountDomainIdMap=new Map<String,Id>();
+        for(Account objAccount: AccountRecordList){
+            AccountDomainIdMap.put(objAccount.Domain__c,objAccount.Id);
         }
-        System.debug('=========>>>>>>>>>'+mapDomainContacts);
-        Id accId;
-        for(String key : mapDomainContacts.keySet()){
-            List<Contact> eachDomainSet = mapDomainContacts.get(key);
-            for(Account eachAccount : AccountList ){
-                if(eachAccount.domain__c.contains(key))
-                {
-                    accId = eachAccount.Id;
+        List<String> splitEmail=new List<String>();
+        String CompareDomain;
+        for(Contact Toassociate: ContactRecordList){
+            if(Toassociate.Email != NULL){
+                splitEmail=Toassociate.Email.split('@');
+                CompareDomain=splitEmail[1];
+                if(AccountDomainIdMap.containsKey(CompareDomain)){
+                    Toassociate.AccountId=AccountDomainIdMap.get(CompareDomain);
                 }
-                
-            }
-            for(Contact eachContact : eachDomainSet){
-                eachcontact.accountid = accid;
-            }mapDomainContacts.put(key,eachDomainSet);
-               
-        }
+             }   
+        }       
 
     }
 }

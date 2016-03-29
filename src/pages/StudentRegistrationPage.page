@@ -1,0 +1,28 @@
+<apex:page standardController="VFStudent__c" sidebar="false" showHeader="false" extensions="StudentRegistrationPageExtension" language="{!languageCode}">
+    <apex:form >
+        <apex:actionFunction name="renderForLanguage"/>
+    
+        <apex:pageBlock title="Student Registration Form">
+        <apex:selectList id="LanguagePick" styleClass="std" size="1" onchange="renderForLanguage()" value="{!languageCode}" Label="Language">
+            <apex:selectOptions value="{!LanguageList}">
+            </apex:selectOptions>
+        </apex:selectList>
+        
+        <apex:pageBlockSection >
+            <apex:inputField value="{!VFStudent__c.Student_Name__c}" />
+            <apex:inputField value="{!VFStudent__c.Roll_Number__c}" />
+            <apex:inputField value="{!VFStudent__c.Gender__c}" />
+            <apex:inputField value="{!VFStudent__c.Course_Applying_For__c}" />
+            <apex:inputField value="{!VFStudent__c.H_S_C_Percentage__c}" />
+            <apex:inputField value="{!VFStudent__c.S_S_C_Percentage__c}" />
+            <apex:inputField value="{!VFStudent__c.Country__c}" />
+            <apex:inputField value="{!VFStudent__c.City__c}" />
+            <apex:inputField value="{!VFStudent__c.State__c}" />
+        </apex:pageBlockSection>
+        </apex:pageBlock>
+            <center><apex:commandButton value="Submit" action="{!save}" reRender="successMessage"/></center>
+             <apex:outputPanel >
+            <center><apex:outputText id="successMessage" value="{!$Label.Success_Message}" style="font-size:50" lang="{!languageCode}" rendered="{!messageRender}"></apex:outputText></center>
+        </apex:outputPanel>
+    </apex:form>  
+</apex:page>

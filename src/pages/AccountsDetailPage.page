@@ -1,0 +1,31 @@
+<apex:page standardController="Account" sidebar="false" showHeader="false" recordSetVar="accounts" extensions="AccountRelatedExtension">
+    <apex:form >
+        <apex:pageBlock title="Accounts Information:" >
+            <apex:pageBlockTable value="{!accounts}" var="objAccount">
+                <apex:column headerValue="Account Name">
+                    <apex:commandLink value="{!objAccount.Name}" reRender="contactTable,OpportunityTable" action="{!extractRelatedLists}">
+                        <apex:param name="accID" value="{!objAccount.Id}" assignTo="{!accountIdVar}"/>
+                    </apex:commandLink>
+                </apex:column>
+                <apex:column value="{!objAccount.Phone}"/>
+                <apex:column headerValue="Address" value="{!objAccount.BillingStreet},{!objAccount.BillingCity},{!objAccount.BillingState},{!objAccount.BillingCountry}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Related Contact List:" id="contactTable">
+            <apex:pageBlockTable value="{!relatedContactList}" var="objContact">
+                <apex:column value="{!objContact.Name}"/>
+                <apex:column value="{!objContact.Phone}"/>
+                <apex:column value="{!objContact.Email}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="OpportunityTable" title="Related Opportunity List:">
+            <apex:pageBlockTable value="{!relatedOpportunityList}" var="objOpportunity">
+                <apex:column value="{!objOpportunity.Name}"/>
+                <apex:column value="{!objOpportunity.Type}"/>
+                <apex:column value="{!objOpportunity.StageName}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

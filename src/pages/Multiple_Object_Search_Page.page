@@ -1,0 +1,40 @@
+<apex:page showHeader="false" sidebar="false" controller="MultipleSearchController">
+    <apex:form >
+        <apex:pageBlock title="Multiple Object Search">
+            <center><apex:inputText value="{!searchTerm}" required="true" title="Enter term for search:"/>
+            <apex:commandButton value="Search" action="{!performSearch}" reRender="accountTable,contactTable,leadTable,errorMeassage,opportunityTable"/></center>
+            <apex:outputPanel id="errorMeassage">
+            <apex:pageMessages rendered="{!searchresult==Null}"></apex:pageMessages>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Account Results:" id="accountTable">
+                <apex:pageBlockTable value="{!accountSearchResult}" var="objAccount" rendered="{!accountSearchResult!=Null}" >
+                    <apex:column value="{!objAccount.Name}"/>
+                    <apex:column value="{!objAccount.Phone}"/>
+                    <apex:column value="{!objAccount.PersonEmail__c}"/>
+                </apex:pageBlockTable>
+         </apex:pageBlock>  
+         <apex:pageBlock title="Contact Results:" id="contactTable">
+                <apex:pageBlockTable value="{!contactSearchResult}" var="objContact" rendered="{!contactSearchResult!=Null}" >
+                    <apex:column value="{!objContact.Name}"/>
+                    <apex:column value="{!objContact.Phone}"/>
+                    <apex:column value="{!objContact.Email}"/>
+                </apex:pageBlockTable>
+          </apex:pageBlock>  
+          <apex:pageBlock title="Lead Results:" id="leadTable"> 
+                <apex:pageBlockTable value="{!leadSearchResult}" var="objLead"   rendered="{!leadSearchResult!=Null}">
+                    <apex:column value="{!objLead.Name}"/>
+                    <apex:column value="{!objLead.Phone}"/>
+                    <apex:column value="{!objLead.Email}"/>
+                </apex:pageBlockTable>
+          </apex:pageBlock>        
+          <apex:pageBlock title="Opportunity Results:" id="opportunityTable" >
+                <apex:pageBlockTable value="{!opportunitySearchResult}" var="objOpportunity"  rendered="{!opportunitySearchResult!=Null}" >
+                    <apex:column value="{!objOpportunity.Name}"/>
+                    <apex:column value="{!objOpportunity.Type}"/>
+                    <apex:column value="{!objOpportunity.StageName}"/>
+                </apex:pageBlockTable>  
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

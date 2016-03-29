@@ -1,0 +1,20 @@
+<apex:page standardController="Account" extensions="AccountController">
+  <apex:form >
+   <center><h1>Account Management System</h1></center>
+      <apex:pageBlock >
+     
+          <apex:pageBlockSection >
+              <apex:inputField value="{!Account.name}"/>    
+              <apex:inputField value="{!account.AccountNumber}"/>    
+              <apex:inputField value="{!account.Site}"/>    
+              <apex:inputField value="{!account.Website}"/>    
+              <apex:inputField value="{!account.Fax}"/>  
+          </apex:pageBlockSection>       
+              <apex:pageBlockButtons >
+                  <apex:commandButton value="Next" action="{!save}"/>
+                  <apex:commandButton value="Cancel" immediate="true"  action="{!URLFOR($Action.Account.List,$ObjectType.Account)}" />
+              </apex:pageBlockButtons>
+          </apex:pageBlock> 
+</apex:form>
+
+</apex:page>

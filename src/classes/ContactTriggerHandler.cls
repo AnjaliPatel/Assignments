@@ -1,7 +1,10 @@
 public class ContactTriggerHandler{
     public void AssociateContactToAccount(List<Contact> ContactRecordList){
         
-        List<Account> AccountList=[select ID,Name,Domain__c from Account];
+        List<Account> AccountList=[SELECT ID
+                                        , Name
+                                        , Domain__c
+                                     FROM Account];
         List<String> splitEmail=new List<String>();
         String CompareDomain;
         for(Contact Toassociate: ContactRecordList)

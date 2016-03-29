@@ -12,7 +12,7 @@ public class ManageContactExtension{
         
     }
     public List<Account> getLstAccount(){
-        return [select Id,Name,PersonEmail__c,Phone,Website from Account];
+        return [SELECT Id,Name,PersonEmail__c,Phone,Website FROM Account];
     }
     
     public Integer getCountAccount(){
@@ -21,12 +21,11 @@ public class ManageContactExtension{
     
      public void performSearch(){
          String finalString='%'+searchname+'%';
-        if(searchName!=Null && (searchName.length()>=3) ){
-            String queryString='select Id,Name,PersonEmail__c,Phone,Website from Account where Name LIKE :finalString';
+        if(searchName!=Null && (searchName.length()>2) ){
+            String queryString='SELECT Id,Name,PersonEmail__c,Phone,Website from Account where Name LIKE :finalString';
             searchList=database.query(queryString);
             renderSearchWarning=false; 
             renderSearchVariable=true;
-            system.debug(renderSearchWarning);
         }
         else{
             renderSearchWarning=true;
@@ -34,10 +33,9 @@ public class ManageContactExtension{
         } 
     }
     
-    public pageReference clearSearch(){
+    public void clearSearch(){
         searchName='';
         searchList.clear(); 
-        renderSearchVariable=false;
-        return null;  
+        renderSearchVariable=false; 
     }
 }

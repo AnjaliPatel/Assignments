@@ -33,7 +33,12 @@ public with sharing class DMLOperationsClass{
     
 //This method deletes all inactive Account records created in last 90 days.
     public static void deleteInactiveAccounts(){
-        List<Account> AccList=[select Id,Name from Account where Active__c IN('No') AND CreatedDate = LAST_90_DAYS];
+        List<Account> AccList=[SELECT Id
+                                    , Name
+                                 FROM Account 
+                                WHERE Active__c 
+                                   IN ('No') 
+                                  AND CreatedDate = LAST_90_DAYS];
         delete accList;
     } 
     

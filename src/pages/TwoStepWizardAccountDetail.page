@@ -1,0 +1,22 @@
+<apex:page standardController="Account">
+<apex:form >
+    <apex:pageBlock >
+    <apex:pageBlockButtons >
+         <apex:commandButton value="Edit" action="https://ap2.salesforce.com/apex/TwoStepWizardAccountEditPage?id={!Account.Id}"/>
+         
+    </apex:pageBlockButtons>
+       
+            <apex:pageBlockTable value="{!Account}" var="objAccount" >
+                <apex:column value="{!objAccount.Id}" />
+                <apex:column value="{!objAccount.Name}"/>
+                <apex:column value="{!objAccount.Site}"/>
+                <apex:column value="{!objAccount.Phone}"/>
+                <apex:column value="{!objAccount.website}"/>
+                <apex:column value="{!objAccount.accountNumber}"/>
+             </apex:pageBlockTable>     
+       
+    </apex:pageBlock>
+
+</apex:form>
+<apex:relatedList subject="{!Account}" list="combinedAttachments"/>
+</apex:page>

@@ -1,0 +1,16 @@
+<apex:page showHeader="false" sidebar="false" title="Select language" language="{!languageCode}" controller="CustomTextManipulationPageController">
+  <apex:form >
+      <apex:actionFunction name="renderForLanguage"/>
+      <apex:pageBlock >
+          <center>
+              <apex:selectList id="LanguagePick" styleClass="std" size="1" onchange="renderForLanguage()" value="{!languageCode}" Label="Language">
+                  <apex:selectOptions value="{!LanguageList}">
+                  </apex:selectOptions>
+              </apex:selectList>
+           </center>
+      </apex:pageBlock>
+      <apex:outputPanel >
+              <apex:outputText value="{!$Label.Test_Custom_Label}" lang="{!languageCode}" ></apex:outputText>
+      </apex:outputPanel>
+  </apex:form>
+</apex:page>

@@ -7,14 +7,22 @@ global class ManipulateContactExtension{
     public Integer countContact; 
     public String delContactId {get;set;}
     public List<String> alphabetList {get;set;}
-    public String alphabetVar {get;set;}  
+    public String alphabetVar {get;set;} 
     public List<Contact> displayContactList {get;set;}
   
     public ManipulateContactExtension(ApexPages.StandardController sc){ 
         currentId=ApexPages.currentPage().getParameters().get('id');
         alphabetList=new List<String>{'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','All'};
         alphabetVar='All'; 
-        displayContactList=new List<Contact>([select Id,Name,Phone,Email from Contact where AccountId=:currentId ORDER BY Name ]); 
+        system.debug(currentId);
+        system.debug(alphabetVar);
+        displayContactList=new List<Contact>([SELECT Id
+                                                   , Name
+                                                   , Phone
+                                                   , Email 
+                                                FROM Contact 
+                                               WHERE AccountId=:currentId 
+                                            ORDER BY Name ]); 
         lstContact=new List<Contact>();
         for(Contact objContact: displayContactList){
             if(alphabetVar.equals('All')){
@@ -35,6 +43,7 @@ global class ManipulateContactExtension{
     public Integer getCountContact(){
         return lstContact.size();
     }
+    
      
     public pageReference deleteAll(){
         try{
@@ -47,21 +56,7 @@ global class ManipulateContactExtension{
         {
             return null;
         }    
-    }
-    
-     public pageReference deleteSingle(){
-        try{
-            system.debug(delContactId);
-            List<Contact> delContactSingle=new List<Contact>([select Id,Name from Contact where Id=:delContactId]);
-            delete(delContactSingle);
-            return null;
-         }
-        catch(exception e)
-        {
-            return null;
-        }    
-    }
-    
+    } 
     
     public void displayAlphabeticalSearch(){
         lstContact.clear();
@@ -81,7 +76,10 @@ global class ManipulateContactExtension{
     
     @RemoteAction
     global static String deleteSingle(String delContactId){
-            List<Contact> delContactSingle=new List<Contact>([select Id,Name from Contact where Id=:delContactId]);
+            List<Contact> delContactSingle=new List<Contact>([SELECT Id
+                                                                   , Name
+                                                                FROM Contact 
+                                                               WHERE Id=:delContactId]);
             delete(delContactSingle);
             String successMessage='Deletion Completed';
             return successMessage;

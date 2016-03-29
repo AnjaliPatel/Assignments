@@ -1,6 +1,13 @@
 public class CaseTriggerHandler{
     public void CaseTriggerHandlerMethod(List<Case> caseList){
-        List<Account> AccountList=[select Id,Name,PersonEmail__c from Account where RecordTypeId IN(select Id from RecordType where Name='Person Account')];
+        List<Account> AccountList=[SELECT Id
+                                        , Name
+                                        , PersonEmail__c 
+                                     FROM Account 
+                                    WHERE RecordTypeId 
+                                       IN (SELECT Id 
+                                             FROM RecordType 
+                                            WHERE Name='Person Account')];
         for(Account AccObject: AccountList)
         {
             for(Case CaseObject: caseList)

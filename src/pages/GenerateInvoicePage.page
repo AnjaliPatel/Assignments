@@ -1,0 +1,85 @@
+<apex:page showHeader="false" sidebar="false" renderAs="pdf" standardController="Invoice__c" extensions="GenerateInvoicePageExtension">
+    <header>
+        <h1 style="text-align:right;color:rgb(0,255,255)"><b>INVOICE</b></h1>
+    </header>
+    <apex:pageBlock >
+        <section>
+         <div style="float:right;width:300px;">
+            <table border="1" border-collapse="collapse" width="250px">
+                <tr>
+                    <td style="background-color:rgb(0, 158, 255)">Invoice Number</td>
+                    <td style="background-color:rgb(0, 158, 255)">Invoice Date</td>
+                </tr>
+                <tr>
+                    <td>{!Invoice__c.Name}</td><td>{!Day(Today())}/{!Month(Today())}/{!Year(Today())}</td>
+                </tr>
+            </table>
+        </div>   
+        <div style="height:100px;width:150px;padding:20px">
+            <apex:outputText style="font-size:50px" ><b>{!Invoice__c.Related_Account__r.Name}</b></apex:outputText><br/>
+            <apex:outputText >{!Invoice__c.Related_Account__r.BillingStreet}</apex:outputText><br/>
+            <apex:outputText >{!Invoice__c.Related_Account__r.BillingCity},{!Invoice__c.Related_Account__r.BillingState},{!Invoice__c.Related_Account__r.BillingPostalCode}</apex:outputText><br/>
+            <apex:outputText >{!Invoice__c.Related_Account__r.Phone}</apex:outputText><br/>
+        </div>
+        </section>
+    </apex:pageBlock>
+     
+    <div style="height:30px">
+    </div>
+    <div style="height:30px">
+    </div>
+    <section>
+        <div style="height:100px;padding:20px;width:200px">
+            <apex:pageBlock >
+                <apex:pageBlockSection >
+                    <apex:outputText ><b>Bill To:</b></apex:outputText><br/>
+                    <apex:outputText >{!Invoice__c.Related_Contact__r.Name}</apex:outputText><br/>
+                    <apex:outputText >{!Invoice__c.Related_Contact__r.MailingStreet}</apex:outputText><br/>
+                    <apex:outputText >{!Invoice__c.Related_Contact__r.MailingCity},{!Invoice__c.Related_Contact__r.MailingState},{!Invoice__c.Related_Contact__r.MailingPostalCode}</apex:outputText><br/>
+                    <apex:outputText >{!Invoice__c.Related_Contact__r.Phone}</apex:outputText><br/>
+                    <apex:outputText >{!Invoice__c.Related_Contact__r.Email}</apex:outputText><br/>
+                </apex:pageBlockSection>
+            </apex:pageBlock> 
+        </div>
+    </section>
+    <div style="height:30px">
+    </div>
+    
+    <section>
+        <div style="height:300px"> 
+            <apex:pageBlock >
+                <apex:pageBlockSection >
+                   <apex:pageBlockTable border="2" width="700px" value="{!relatedLineItemList}" var="objLineItem">
+                        <apex:column headerValue="Item Description">
+                            <apex:outputText ><b><center>{!objLineItem.Item_Name__c}</center></b></apex:outputText><br/>
+                            <apex:outputText >Service Fee</apex:outputText><br/>
+                            <apex:outputText >Labour Cost</apex:outputText><br/>
+                            <apex:outputText >Tax</apex:outputText><br/>
+                            <apex:outputText >Total:</apex:outputText><br/>
+                        </apex:column>
+                        <apex:column headerValue="Item Cost">
+                            <apex:outputText ></apex:outputText><br/>
+                            <apex:outputText >{!objLineItem.Service_Fee__c}</apex:outputText><br/>
+                            <apex:outputText >{!objLineItem.Labour_Cost__c}</apex:outputText><br/>
+                            <apex:outputText >{!objLineItem.Tax__c}</apex:outputText><br/>
+                            <apex:outputText >{!objLineItem.Total_Amount__c}</apex:outputText><br/>
+                        </apex:column>
+                    </apex:pageBlockTable><br/>
+                    <apex:outputText label="Total Amount To Be Paid: ">{!totalBillAmount}</apex:outputText>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+    </section>
+    <div style="height:30px">
+    </div>
+    <div style="height:30px">
+    </div>
+    <div style="height:30px">
+    </div>
+    <div style="height:30px">
+    </div>
+    <footer>
+        <center><apex:outputText >If you have any queries related to this invoice, please contact:</apex:outputText></center><br/>
+        <center><apex:outputText >{!Invoice__c.Related_Account__r.Name},{!Invoice__c.Related_Account__r.Phone},{!Invoice__c.Related_Account__r.PersonEmail__c}</apex:outputText></center>
+    </footer>
+</apex:page>

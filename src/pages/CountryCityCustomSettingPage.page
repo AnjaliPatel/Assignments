@@ -1,0 +1,18 @@
+<apex:page controller="CountryCityCustomSettingPageController" sidebar="false" showHeader="false">
+    <apex:form >
+        <apex:actionFunction name="fetchRelatedCities" reRender="CityPick" >
+            <apex:param name="CountryParam" value="" assignTo="{!selectedCountryName}"/>
+        </apex:actionFunction>
+        
+        <apex:pageBlock title="Country Name">
+           <center> <apex:selectList id="CountryPick" styleClass="std" size="1" onchange="fetchRelatedCities(this.value)" value="{!selectedCountryName}">
+                <apex:selectOptions value="{!CountryValueList}"/>
+            </apex:selectList> </center>
+        </apex:pageBlock>
+        <apex:pageBlock title="Related City Name" >
+            <center> <apex:selectList id="CityPick" styleClass="std" size="1" >
+                <apex:selectOptions value="{!CityValueList}"/>
+            </apex:selectList> </center>
+        </apex:pageBlock>
+    </apex:form>      
+</apex:page>
