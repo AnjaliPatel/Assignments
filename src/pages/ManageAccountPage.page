@@ -3,7 +3,7 @@
     <apex:form >
         <apex:pageBlock title="Accounts Information" >
             
-            <apex:actionFunction name="searchActionFunction" action="{!performSearch}" reRender="pageblock1"/>
+            <apex:actionFunction name="searchActionFunction" action="{!performSearch}" reRender="pageblock1,searchTable"/>
             <apex:pageBlockSection columns="3" id="pageblock1">
                 <apex:inputText value="{!searchName}" label="Search Name" onkeypress="return enterSearchAction(event)" />
                 <apex:commandButton value="Search" action="{!performSearch}" reRender="searchTable,pageblock1"/>

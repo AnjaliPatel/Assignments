@@ -21,5 +21,7 @@ public class TestContactTrigger{
         Test.startTest();
         insert testContactList;
         Test.stopTest(); 
+       // Integer queryResult=[SELECT Count(Id) FROM Contact WHERE AccountId!=Null];
+        system.assertEquals(1,[SELECT Count(Id) FROM Contact WHERE AccountId!=Null].size());
     }
 }

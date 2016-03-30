@@ -15,11 +15,11 @@ public with sharing class AggregateFunctionClass{
     
 //This method retrieves distinct Lead records of Lead sources having more that 10 leads
     public static List<AggregateResult> DistinctLeadSourceRecords(){
-        List<AggregateResult> LeadList=[SELECT COUNT_DISTINCT(ID)
+        List<AggregateResult> LeadList=[SELECT COUNT_DISTINCT(Name)
                                              , LeadSource 
                                           FROM Lead 
                                       GROUP BY LeadSource 
-                                        HAVING COUNT(ID)>10];
+                                        HAVING COUNT_DISTINCT(Name)>10];
         return LeadList;
     }    
 

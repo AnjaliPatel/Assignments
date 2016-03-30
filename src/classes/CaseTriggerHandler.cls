@@ -1,6 +1,8 @@
+//This is the handler class for the case trigger.
 public class CaseTriggerHandler{
+    //This method accepts the recently inserted records of cases through web,email and chat and assigns account to them.
     public void CaseTriggerHandlerMethod(List<Case> caseList){
-        List<Account> AccountList=[SELECT Id
+        List<Account> accountList=[SELECT Id
                                         , Name
                                         , PersonEmail__c 
                                      FROM Account 
@@ -8,19 +10,14 @@ public class CaseTriggerHandler{
                                        IN (SELECT Id 
                                              FROM RecordType 
                                             WHERE Name='Person Account')];
-        for(Account AccObject: AccountList)
-        {
-            for(Case CaseObject: caseList)
-            {
-                if(CaseObject.Origin=='Web'|| CaseObject.Origin=='Email' )
-                {
-                    if(AccObject.PersonEmail__c==CaseObject.SuppliedEmail)
-                    {
-                        CaseObject.AccountId=AccObject.Id;
-                    }
-                }
-            }
+        Map<String,Id> accountEmailIdMap=new Map<String,Id>();
+        for(Account objAccount: accountList){
+            accountEmailIdMap.put(objAccount.PersonEmail__c,objAccount.Id);
         }
-    
+        for(Case objCase: caseList){
+            if(accountEmailIdMap.containsKey(objCase.SuppliedEmail)){
+                objCase.AccountId=accountEmailIdMap.get(objCase.SuppliedEmail);
+            }        
+        }
     }
 }

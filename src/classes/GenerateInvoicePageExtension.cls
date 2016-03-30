@@ -3,7 +3,7 @@ public class GenerateInvoicePageExtension{
     ApexPages.StandardController sc;
     public String invoiceID {get;set;}
     public List<Line_Item__c> relatedLineItemList=new List<Line_Item__c>();
-    public Double totalBillAmount {get;set;}
+    public Double totalBillAmount;
      
     public GenerateInvoicePageExtension( ApexPages.StandardController sc){
         invoiceID=ApexPages.currentPage().getParameters().get('id');     

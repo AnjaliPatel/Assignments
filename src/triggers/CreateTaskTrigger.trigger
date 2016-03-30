@@ -1,11 +1,11 @@
 trigger CreateTaskTrigger on Account (after insert) {
     List<Task> TaskList=new List<Task>();
-    Task taskAssignment=new Task();
+    
     if(trigger.isInsert && trigger.isAfter)
     {
         for(Account accObj:Trigger.new)
         {
-            
+            Task taskAssignment=new Task();
             taskAssignment.whatID=accObj.ID;
             taskAssignment.Subject='Meeting with'+accObj.Name;
             taskAssignment.Priority='Normal';
@@ -14,6 +14,6 @@ trigger CreateTaskTrigger on Account (after insert) {
             TaskList.add(taskAssignment);
             system.debug('Task Assigned');
         }
-        insert taskAssignment;
+        insert TaskList;
     }
 }

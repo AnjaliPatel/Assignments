@@ -1,6 +1,7 @@
-<apex:page standardController="Account" >
+<apex:page standardController="Account" extensions="AccountManagerPageExtension">
     <apex:form >
         <apex:pageBlock title="New Account Information Feed Form">
+            <!--apex:pageMessages id="errorMessage" rendered="{!errorRender}"--><!--/apex:pageMessages-->
             <apex:pageBlockSection >
                 <apex:inputField required="true" value="{!Account.Name}"/> 
                 <apex:inputField required="true" value="{!Account.PersonEmail__c}"/>  
@@ -9,7 +10,9 @@
             </apex:pageBlockSection>
             
             <apex:pageBlockButtons >
-                <apex:commandButton action="{!save}" value="Save" oncomplete="window.open('/apex/ManageAccountPage','_parent')" />
+                <apex:commandButton action="{!createAccount}" value="Save">
+                    <!--apex:param name="mailParameter" value="{!Account.PersonEmail__c}" assignTo="{!inputEmail}"/-->
+                </apex:commandButton>
                 <apex:commandButton immediate="true" action="/apex/ManageAccountPage" value="Cancel"/>
             </apex:pageBlockButtons>
             
