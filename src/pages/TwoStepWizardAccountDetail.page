@@ -7,7 +7,7 @@
     </apex:pageBlockButtons>
        
             <apex:pageBlockTable value="{!Account}" var="objAccount" >
-                <apex:column value="{!objAccount.Id}" />
+                <!--apex:column value="{!objAccount.Id}" /-->
                 <apex:column value="{!objAccount.Name}"/>
                 <apex:column value="{!objAccount.Site}"/>
                 <apex:column value="{!objAccount.Phone}"/>

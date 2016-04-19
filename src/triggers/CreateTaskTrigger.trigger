@@ -1,4 +1,6 @@
 trigger CreateTaskTrigger on Account (after insert) {
+     TriggerSetting__c objTriggerSetting=TriggerSetting__c.getInstance(Userinfo.getUserId());
+    if(objTriggerSetting.Create_Task_Account_Trigger__c==false)return;
     List<Task> TaskList=new List<Task>();
     
     if(trigger.isInsert && trigger.isAfter)

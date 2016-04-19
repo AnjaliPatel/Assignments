@@ -5,6 +5,8 @@ trigger CheckAllActionsTrigger on Account (after delete,
                                             before delete, 
                                             before insert, 
                                             before update ) {
+     TriggerSetting__c objTriggerSetting=TriggerSetting__c.getInstance(Userinfo.getUserId());
+    if(objTriggerSetting.Check_All_Actions_Account_Trigger__c==false)return;
                                 
     if(trigger.isBefore && trigger.isInsert)
     {

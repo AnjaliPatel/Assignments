@@ -1,5 +1,5 @@
 //This is the utility class for TestCountryCityCustomSettingPageClass
-public class createCustomSettingDataClass{
+public class CreateCustomSettingDataClass{
     //This method creates data for Country Custom Setting.
     public static List<Country__c> createCountryCustomSettingData(){
         List<Country__c> countryRecords=new List<Country__c>();

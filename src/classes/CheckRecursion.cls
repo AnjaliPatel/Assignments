@@ -1,4 +1,4 @@
-public class checkRecursion{
+public class CheckRecursion{
 
     public static boolean flag=true;
     public static boolean checkTriggerExecution(){

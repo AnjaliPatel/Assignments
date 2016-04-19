@@ -1,6 +1,7 @@
+@isTest
 public class CreateTestData{
     //This is a utility method to create test data for account object.
-    public static List<Account> AccountData(){
+    public static List<Account> accountData(){
         Account acc1=new Account(Name='anjali',PersonEmail__c='anjali@gmail.com',Phone='125463987',Website='');
         Account acc2=new Account(Name='ashwini',PersonEmail__c='ashu@gmail.com',Phone='546354987',Website='');
         List<Account> AccList=new List<Account>();
@@ -10,12 +11,36 @@ public class CreateTestData{
         return AccList;              
     }
     //This is a utility method to create test data for contact object.
-    public static List<Contact> ContactData(){
+    public static List<Contact> contactData(){
         Contact contact1=new Contact(LastName='Patel',Email='anjali@gmail.com',Phone='125463987');
         Contact contact2=new Contact(LastName='Kumar',Email='rohit@gmail.com',Phone='125463987');
         List<Contact> ConList=new List<Contact>();
         ConList.add(contact1);
         ConList.add(contact1);
         return ConList;              
+    }
+    
+    public static List<Opportunity> opportunityData(Integer count,String stage,Decimal oppAmount,Boolean aggregated){
+        List<Opportunity> testOpportunities=new List<Opportunity>();
+        for(Integer i=0;i<count;i++){
+            Opportunity objOpportunity=new Opportunity(Name='testO'+i,CloseDate=System.Today(),StageName=stage,Amount=oppAmount,Is_Aggregated__c=aggregated);
+            testOpportunities.add(objOpportunity);
+        }
+        return testOpportunities;
+    }
+    
+    //This method creates the data for lead object.
+    public static List<Lead> leadData(Integer recordCount,String fName,String lName,String emailId,String phoneNumber,String companyName){
+        List<Lead> leadList=new List<Lead>();
+        for(Integer counter=0;counter<recordCount;counter++){
+            Lead objLead=new Lead();
+            objLead.FirstName=fName;
+            objLead.LastName=lName;
+            objLead.Email=emailId;
+            objLead.Phone=phoneNumber;
+            objLead.Company=companyName;
+            leadList.add(objLead);
+        }
+        return leadList;
     }
 }

@@ -1,5 +1,7 @@
 trigger ContextVariableTrigger on Account (after update,before insert ) {
-                                
+    
+     TriggerSetting__c objTriggerSetting=TriggerSetting__c.getInstance(Userinfo.getUserId());
+    if(objTriggerSetting.Context_Variable_Account_Trigger__c==false)return;                            
     if(trigger.isBefore && trigger.isInsert)
     {
         system.debug('For new ' + Trigger.New);

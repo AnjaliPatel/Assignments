@@ -1,0 +1,57 @@
+<apex:page controller="DynamicSOQLPageController" showHeader="false" sidebar="false">
+    <apex:form >
+        <apex:pageBlock title="Objects-Field Information">
+            <apex:outputLabel >Select Object: </apex:outputLabel>
+            <apex:selectList size="1" value="{!selectedObject}">
+                <apex:selectOptions value="{!objectPickListValues}"/>
+                <apex:actionSupport event="onchange"  reRender="fieldValueMultiPicklist"/>
+            </apex:selectList>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:outputText >Select Fields: </apex:outputText>
+            <!--apex:pageBlockSection-->
+            <table>
+                <tr>
+                    <td>
+                        <apex:selectList id="fieldValueMultiPicklist" multiselect="true" size="6" value="{!selectedFieldValues}">
+                            <apex:selectOptions value="{!multiSelectPickValues}"/>
+                        </apex:selectList>
+                    </td>
+                    <td>
+                        <table><td>
+                            <tr><apex:commandButton value=">>" action="{!createSelectedFieldOptions}"/></tr><br/>
+                            <tr><apex:commandButton value="<<"/></tr>
+                        </td></table>
+                    </td>
+                    <td>
+                        <apex:selectList id="selectedFieldsPicklist" multiselect="true" size="6" rendered="{!multipickRender}" value="{!selectedMultiFieldValues}">
+                            <apex:selectOptions value="{!selectedFieldOptions}"/>
+                        </apex:selectList>
+                    </td>
+            <!--/apex:pageBlockSection-->
+                </tr>
+             </table>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+            <apex:outputText value=" Maximum Number of Records"/><br/>
+            <apex:selectList id="MaxRecordsPicklist" size="1" value="{!selectedRecordNumber}">
+                <apex:selectOptions value="{!numberOfRecords}"/>
+            </apex:selectList>
+            <!--<apex:outputText>Sort As:</apex:outputText>-->
+            <apex:selectRadio value="{!selectedOrder}" >
+                <apex:selectOptions value="{!orderOptions}" />
+            </apex:selectRadio>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <!--apex:commandButton value="Create Query"/-->
+            <apex:commandButton value="Execute Query"/><br/>
+            <center><apex:outputText >SOQL Query :</apex:outputText></center><br/>
+            <center><apex:outputText id="SoqlQuery" value="{!dynamicSoqlQuery}"></apex:outputText></center>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:outputText >Query Results:</apex:outputText>
+        </apex:pageBlock>
+    </apex:form>  
+</apex:page>
